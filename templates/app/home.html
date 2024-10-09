@@ -1,0 +1,49 @@
+{% extends 'app/base.html' %}
+{% load static %} 
+
+{% block content %}
+<div class="shadow p-3 mb-5 bg-white rounded">
+  <h2 style="color:rgb(0, 102, 255)">Welcome to the Movie Recommender</h2>
+  <h3 style="color:rgb(0, 90, 200)">Enter the Hollywood movie you like to get recommendations.</h3>
+  <h4 style="color:rgb(0, 10, 20)">Example Movie names:</h4>
+  <h5 style="color:rgb(0, 70, 100)">avatar, spectre, the dark knight rises, john carter, spider-man 3, tangled, iron man 3, titanic, battleship, skyfall ...</h5>
+</div>
+
+<form action="{% url 'recommend' %}" method="GET">
+    {% csrf_token %}
+    <input type="text" id="movie" name="movie" class="form-control" placeholder="Movie name here">
+    <br>
+    <input type="submit" class="btn btn-info" value="Enter">
+</form>
+
+<!-- Include jQuery and jQuery UI libraries -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+
+<script>
+  $(document).ready(function() {
+      let movieTitles = [];
+      
+      $.ajax({
+          url: "{% url 'get_movies' %}",  // Update this URL to use Django URL routing
+          method: 'GET',
+          success: function(data) {
+              movieTitles = data;
+          },
+          error: function() {
+              console.error('Failed to fetch movie titles.');
+          }
+      });
+      
+      $("#movie").autocomplete({
+          source: function(request, response) {
+              const matches = movieTitles.filter(title => title.toLowerCase().includes(request.term.toLowerCase()));
+              response(matches);
+          },
+          minLength: 1
+      });
+  });
+</script>
+  
+{% endblock %}
