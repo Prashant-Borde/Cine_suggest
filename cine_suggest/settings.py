@@ -138,3 +138,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+ALLOWED_HOSTS = ['cine-suggest-97un.onrender.com', '127.0.0.1', 'localhost']
