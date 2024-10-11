@@ -1,33 +1,98 @@
 {% extends 'app/base.html' %}
-{% load static %} 
+{% load static %}
+
 {% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+    <link rel="stylesheet" href="app/css/style.css">
+    <script src="{% static 'js/main.js' %}"></script>
 
-  {% if t == 's' %}
-  <div class="shadow p-3 mb-5 bg-white rounded">
-    <h3 style="color: rgb(0, 102, 255)">Sorry! This movie is not in our database.</h3>
-    <h3 style="color: rgb(0, 102, 255)">Please check if you spelled it correctly.</h3>
-    <h3 style="color: rgb(0, 102, 255)">Or try with another movie.</h3>
-  </div>
+</head>
+<div class="container-fluid bg-dark text-white"> <!-- Use container-fluid for full-width -->
 
-  {% else %}
-  <div class="shadow p-3 mb-5 bg-white rounded">
-    <h1 style="color: rgb(0, 102, 255)">"{{ movie }}" is a great choice.</h1>
-    <h3 style="color: rgb(0, 102, 255)">Here are some more like this:</h3>
-  </div>
+    <div id="tag"class=" content   ">  <!-- Main content area -->
+        {% if t == 's' %}
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <h3 class="text-primary">Sorry! This movie is not in our database.</h3>
+            <h3 class="text-primary">Please check if you spelled it correctly.</h3>
+            <h3 class="text-primary">Or try with another movie.</h3>
+        </div>
+        {% else %}
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <h1 class="text-primary">"{{ movie }}" is a great choice.</h1>
+            <h3 class="text-primary">Here are some more like this:</h3>
+        </div>
+        
+        <div class="hero-slider">
+            <div class="slide">
+                <img src="{% static 'images/header1.jpg' %}" alt="Image 1">
+            </div>
+            <div class="slide">
+                <img src="{% static 'images/header2.jpg' %}" alt="Image 2">
+            </div>
+            <div class="slide">
+                <img src="{% static 'images/header3.jpg' %}" alt="Image 3">
+            </div>
+            <div class="slide">
+                <img src="{% static 'images/header4.jpg' %}" alt="Image 4">
+            </div>
+        </div>
 
-    <ul class="list-group list-group-flush">
-      {% for m in r %}
-      <li class="list-group-item" style="color: rgb(0, 179, 0)">
-        <a href="https://www.youtube.com/results?search_query={{ m|urlencode }}+trailer" target="_blank" style="color: rgb(0, 179, 0)"><strong>{{ m|title }}</strong></a>
-      
-        &nbsp;|&nbsp;
-        <a href="https://www.imdb.com/find?q={{ m|urlencode }}" target="_blank" style="color: rgb(0, 102, 255)">
-          IMDb Rating
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
-  
-  {% endif %}
-
+        
+     
+        <div class="row">
+            {% for movie, poster in r %}
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="card mb-4 movie-card">
+                    <img src="{{ poster }}" alt="{{ movie }}" class="card-img-top" loadin="latency" style="height: 350px; object-fit: cover;">
+                    <div class="card-body text-center" style="height: 200px; object-fit: cover;">
+                        <h5 class="card-title">
+                            <a href="https://www.youtube.com/results?search_query={{ movie|urlencode }}+trailer" target="_blank" class="text-success">{{ movie|title }}</a>
+                            <!-- <a href="https://www.youtube.com/results?search_query={{ movie|urlencode }}+trailer" target="_blank" class="youtube">{{ movie|title }}</a> -->
+                        </h5>
+                        <!-- <a href="https://www.imdb.com/find?q={{ movie|urlencode }}" target="_blank" class="btn btn-primary">IMDb Rating</a> -->
+                        <!-- <button class="imdb" id="imdb" href="https://www.imdb.com/find?q={{ movie|urlencode }}"  > IMDB Rating</button> -->
+                        <a href="https://www.imdb.com/find?q={{ movie|urlencode }}" target="_blank" class="imdb-button">IMDb Rating</a>
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:4 %}
+            </div><div class="row">
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
+
+<style>
+    body{
+        margin: 0;
+    }
+    .content {
+        padding: 20px; /* Add padding as needed */
+        overflow-y: auto; /* Allow scrolling if content overflows */
+        width: 100%; /* Make sure content takes the full width */
+    }
+
+    .movie-card {
+        background-color: rgba(75, 70, 70, 0.9); /* Slightly transparent white */
+        transition: transform 0.3s; /* Smooth transition */
+        height: 350px; /* Fixed height for cards */
+    }
+
+    .movie-card:hover {
+        transform: scale(1.05); /* Slightly scale up on hover */
+
+    }
+
+    .imdb{
+        background-color: yellow;
+        color: black;
+    }
+
+    #imdb{
+        background-color: yellow;
+    }
+</style>
