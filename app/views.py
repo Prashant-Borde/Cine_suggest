@@ -490,15 +490,5 @@ def your_view(request):
         'movie': 'Some Movie Title',  # Replace with actual movie title
         'r': [('Movie 1', 'poster1.jpg'), ('Movie 2', 'poster2.jpg')]  # Replace with actual movie data
     }
-    return render(request, 'your_template.html', context)
+    return render(request, 'recommend.html', context)
 
-def create_sim():
-    # Example of how you might be creating your DataFrame
-    data = pd.DataFrame({
-        # Assuming 'comb' should be a combination of certain columns
-        'comb': ['value1', 'value2'],  # Replace with actual logic
-        # other columns...
-    })
-    print(data.columns)  # Add this line to see what columns are present
-    count_matrix = cv.fit_transform(data['comb'])
-    return count_matrix
