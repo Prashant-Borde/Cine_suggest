@@ -1,7 +1,6 @@
 from django import forms
 from .models import Feedback
 
-
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
@@ -12,6 +11,3 @@ class FeedbackForm(forms.ModelForm):
             'feedback_text': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter your feedback'}),
         }
 # app/forms.py
-
-
-
