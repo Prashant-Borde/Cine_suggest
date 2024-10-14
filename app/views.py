@@ -339,7 +339,6 @@ def import_csv_to_db(request):
     else:
         return Response({"message": "Data successfully migrated from CSV to database."}, status=status.HTTP_201_CREATED)
 
-
 # def fetch_poster(id):
 #      response = requests.get('https://api.themoviedb.org/3/movie/{}?api_key=db3b42ad8b49e299ecc879fc2539fc90&language=en-US').format(movie)
 #      data = response.json()
@@ -469,9 +468,6 @@ def fetch_poster_by_title(movie_title):
 
     return poster
 
-
-
-
 def your_view(request):
     # List of header images
     header_images = [
@@ -491,4 +487,3 @@ def your_view(request):
         'r': [('Movie 1', 'poster1.jpg'), ('Movie 2', 'poster2.jpg')]  # Replace with actual movie data
     }
     return render(request, 'recommend.html', context)
-
