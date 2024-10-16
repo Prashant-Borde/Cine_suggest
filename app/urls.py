@@ -12,5 +12,13 @@ urlpatterns = [
     path('get-movies/', views.get_movies, name='get_movies'),
 
     path('migrate-from-csv/', views.import_csv_to_db, name='migrate-from-csv'),
+    # path('movie/<int:movie_id>/', views.movie_details, name='movie_details'),
+    # urls.py
+    path('movie-details/<str:movie_title>/', views.movie_details, name='movie_details'),
+
+    
 
 ]
+
+
+

@@ -25,6 +25,10 @@ import time
 
 import random
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render, get_object_or_404
+  
+
 
 
 
@@ -487,3 +491,15 @@ def your_view(request):
         'r': [('Movie 1', 'poster1.jpg'), ('Movie 2', 'poster2.jpg')]  # Replace with actual movie data
     }
     return render(request, 'recommend.html', context)
+
+
+
+def movie_details(request, movie_title):
+    # Fetch the movie details from the database
+    movie = get_object_or_404(Movie, movie_title=movie_title)
+
+    # Pass the movie details to the template
+    context = {
+        'movie': movie,
+    }
+    return render(request, 'app/movie_details.html', context)
