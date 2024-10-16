@@ -415,7 +415,17 @@ def import_csv_to_db(request):
 #             if data['results']:
 #                 poster_path = data['results'][0].get('poster_path')
 #                 if poster_path:
-#               
+#                     return f'https://image.tmdb.org/t/p/w500{poster_path}'
+#                 else:
+#                     return None
+#             else:
+#                 return None
+#         else:
+#             print(f"Error: Received status code {response.status_code}")
+#             return None
+#     except Exception as e:
+#         print(f"Error fetching poster: {e}")
+#         return None
 
 import requests
 
