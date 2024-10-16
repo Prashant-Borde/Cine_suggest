@@ -10,7 +10,22 @@
 </head>
 <div class="container-fluid bg-dark text-white"> <!-- Use container-fluid for full-width -->
 
-    <div id="tag"class=" content   ">  <!-- Main content area -->
+    <!-- <div class="custom-content" style="background-image: url('{% static "images/header1.jpg" %}');">
+        {% if t == 's' %}
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <h3 class="text-primary">Sorry! This movie is not in our database.</h3>
+            <h3 class="text-primary">Please check if you spelled it correctly.</h3>
+            <h3 class="text-primary">Or try with another movie.</h3>
+        </div>
+        {% else %}
+        <div class="shadow p-3 mb-5  rounded">
+            <h1 class="text-primary">"{{ movie }}" is a great choice.</h1>
+            <h3 class="text-primary">Here are some more like this:</h3>
+        </div>
+        {% endif %}
+    </div> -->
+    
+    <!-- <div class="custom-content" style="background-image: url('{% static "images/header1.jpg" %}');">
         {% if t == 's' %}
         <div class="shadow p-3 mb-5 bg-white rounded">
             <h3 class="text-primary">Sorry! This movie is not in our database.</h3>
@@ -22,8 +37,41 @@
             <h1 class="text-primary">"{{ movie }}" is a great choice.</h1>
             <h3 class="text-primary">Here are some more like this:</h3>
         </div>
-        
-        <div class="hero-slider">
+        {% endif %}
+    </div> -->
+    
+    <div class="custom-content">
+        {% if t == 's' %}
+        <div class="shadow p-3 mb-5  rounded">
+            <h3 class="recomendeed_movie_text">Sorry! This movie is not in our database.</h3>
+            <h3 class="recomendeed_movie_text">Please check if you spelled it correctly.</h3>
+            <h3 class="recomendeed_movie_text">Or try with another movie.</h3>
+        </div>
+        {% else %}
+        <div class="shadow p-3 mb-5  rounded">
+            <h1 class="recomendeed_movie_text">"{{ movie }}" is a great choice.</h1>
+            <h3 class="recomendeed_movie_text">Here are some more like this:</h3>
+        </div>
+        {% endif %}
+    </div>
+    
+
+    <!-- <div id="tag"class="content">
+        <div class="custom-content">
+        {% if t == 's' %}
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <h3 class="text-primary">Sorry! This movie is not in our database.</h3>
+            <h3 class="text-primary">Please check if you spelled it correctly.</h3>
+            <h3 class="text-primary">Or try with another movie.</h3>
+        </div>
+        {% else %}
+        <div class="shadow p-3 mb-5 bg-white rounded">
+
+            <h1 class="text-primary">"{{ movie }}" is a great choice.</h1>
+            <h3 class="text-primary">Here are some more like this:</h3>
+        </div>
+        </div> -->
+        <!-- <div class="hero-slider">
             <div class="slide">
                 <img src="{% static 'images/header1.jpg' %}" alt="Image 1">
             </div>
@@ -36,27 +84,31 @@
             <div class="slide">
                 <img src="{% static 'images/header4.jpg' %}" alt="Image 4">
             </div>
-        </div>
+        </div> -->
 
         
      
         <div class="row">
             {% for movie, poster in r %}
-            <div class="col-md-3 col-sm-6 col-12">
+            <div class="col-md-2 col-sm-6 col-md-2">
                 <div class="card mb-4 movie-card">
-                    <img src="{{ poster }}" alt="{{ movie }}" class="card-img-top" loadin="latency" style="height: 350px; object-fit: cover;">
+                    <img src="{{ poster }}" alt="{{ movie }}" class="card-img-top" loadin="latency" style="height: 300px; object-fit: cover;">
                     <div class="card-body text-center" style="height: 200px; object-fit: cover;">
                         <h5 class="card-title">
-                            <a href="https://www.youtube.com/results?search_query={{ movie|urlencode }}+trailer" target="_blank" class="text-success">{{ movie|title }}</a>
-                            <!-- <a href="https://www.youtube.com/results?search_query={{ movie|urlencode }}+trailer" target="_blank" class="youtube">{{ movie|title }}</a> -->
+                            <!-- below is a title which has functionality when clicked on it it redirect and find a trailer of movie  -->
+                            <!-- <a href="https://www.youtube.com/results?search_query={{ movie|urlencode }}+trailer" target="_self" class="text-success">{{ movie|title }}</a> -->
                         </h5>
-                        <!-- <a href="https://www.imdb.com/find?q={{ movie|urlencode }}" target="_blank" class="btn btn-primary">IMDb Rating</a> -->
-                        <!-- <button class="imdb" id="imdb" href="https://www.imdb.com/find?q={{ movie|urlencode }}"  > IMDB Rating</button> -->
-                        <a href="https://www.imdb.com/find?q={{ movie|urlencode }}" target="_blank" class="imdb-button">IMDb Rating</a>
+                        <!-- bellow is a button for imdb search -->
+                        <!-- <a href="https://www.imdb.com/find?q={{ movie|urlencode }}" target="_self" class="imdb-button">IMDb Rating</a> -->
+                        <!-- below is a button on which if clicked it redirects and show the movie details from database  -->
+                        <a href="{% url 'movie_details' movie %}" target="_self" class="movie-details">{{ movie|title }}</a>
+
+
+
                     </div>
                 </div>
             </div>
-            {% if forloop.counter|divisibleby:4 %}
+            {% if forloop.counter|divisibleby:6 %}
             </div><div class="row">
             {% endif %}
             {% endfor %}

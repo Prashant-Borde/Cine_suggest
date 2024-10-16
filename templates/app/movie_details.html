@@ -1,37 +1,145 @@
-<!-- {% extends 'base.html' %}
+{% extends 'app/base.html' %}
+{% load static %}
+
 {% block content %}
-<div class="shadow p-3 mb-5 bg-white rounded">
-    <h1 style="color:rgb(0, 102, 255)">Top 10 YouTube Results for "{{ movie_title }} Trailer"</h1>
+
+<head>
+  <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+  <script src="{% static 'js/main.js' %}"></script>
+  <style>
+      .background-image {
+          background-image: url('{% static "images/your-image.jpg" %}'); /* Replace with your image path */
+          background-size: cover; /* Cover the entire area */
+          background-position: center; /* Center the image */
+          position: relative; /* Position relative for absolute children */
+          height: 100vh; /* Full viewport height */
+          color: white; /* Default text color */
+      }
+
+      .overlay {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%); /* Center the overlay */
+          background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+          padding: 20px; /* Padding around the content */
+          border-radius: 10px; /* Rounded corners */
+          width: 80%; /* Responsive width */
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+      }
+
+      table {
+          background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent table background */
+          width: 100%; /* Full width for the table */
+      }
+
+      th, td {
+          text-align: left; /* Align text to the left */
+      }
+
+      th {
+          background-color: rgba(0, 102, 255, 0.8); /* Header background color */
+      }
+
+      tbody tr:hover {
+          background-color: rgba(255, 255, 255, 0.1); /* Highlight row on hover */
+      }
+  </style>
+</head>
+
+<div class="background-image">
+  <div class="overlay">
+      <div class="text-center mb-4">
+          <h1 class="display-4 text-light">{{ movie.movie_title }}</h1>
+      </div>
+
+      <div class="table-responsive mb-4">
+          <table class="table table-striped table-bordered text-white">
+              <thead>
+                  <tr>
+                      <th>Details</th>
+                      <th>Information</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><strong>Director</strong></td>
+                      <td>{{ movie.director_name }}</td>
+                  </tr>
+                  <tr>
+                      <td><strong>Actor 1</strong></td>
+                      <td>{{ movie.actor_1_name }}</td>
+                  </tr>
+                  <tr>
+                      <td><strong>Actor 2</strong></td>
+                      <td>{{ movie.actor_2_name }}</td>
+                  </tr>
+                  <tr>
+                      <td><strong>Actor 3</strong></td>
+                      <td>{{ movie.actor_3_name }}</td>
+                  </tr>
+                  <tr>
+                      <td><strong>Genres</strong></td>
+                      <td>{{ movie.genres }}</td>
+                  </tr>
+                  <tr>
+                      <td><strong>Description</strong></td>
+                      <td>{{ movie.comb }}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <div class="shadow p-3 mb-4 bg-white rounded text-center">
+        <h2 style="color: rgb(0, 102, 255);"><a href="https://www.youtube.com/results?search_query={{ movie|urlencode }}+trailer" target="_self" >Top  YouTube Results for "{{ movie.movie_title }}"" Trailer</a></h2>
+          <!-- <h2 style="color: rgb(0, 102, 255);">Top 10 YouTube Results for "{{ movie.movie_title }} Trailer"</h2> -->
+         
+      </div>
+
+      <div id="imdb" class="shadow p-3 mb-12 bg-white rounded text-center">
+         <a href="https://www.imdb.com/find?q={{ movie|urlencode }}" target="_self" class="imdb-button">IMDb Rating</a>
+
+      </div>
+<!-- 
+      for future pupose to show youtube 1st search result
+      {% if videos %}
+          <div class="table-responsive">
+              <table class="table table-striped table-bordered text-white">
+                  <thead>
+                      <tr>
+                          <th>Video Title</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for video in videos %}
+                          <tr>
+                              <td>
+                                  <a href="{{ video.url }}" target="_blank" style="color: rgb(0, 179, 0);">
+                                      {{ video.title }}
+                                  </a>
+                              </td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+      {% else %}
+          <div class="alert alert-warning text-center" role="alert">
+              No results found for "{{ movie.movie_title }}". Please try a different query.
+          </div>
+      {% endif %} -->
+
+      <div class="card mb-3 mt-4">
+          <div class="row no-gutters">
+              <div class="col-md-12">
+                  <div class="card-body text-center">
+                      <h5 id="owner" class="card-title">Prashant Borde & Sanjana Shinde</h5>
+                      <p id="owner" class="card-text">Movie Recommendation System Project</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
 
-<ul class="list-group list-group-flush">
-  {% for video in videos %}
-  <li class="list-group-item" style="color:rgb(0, 179, 0)">
-    <a href="{{ video.url }}" target="_blank" style="color:rgb(0, 179, 0)">
-      <strong>{{ video.title }}</strong>
-    </a>
-  </li>
-  {% endfor %}
-</ul>
-{% endblock %} -->
-
-{% extends 'base.html' %}
-{% block content %}
-<div class="shadow p-3 mb-5 bg-white rounded">
-    <h1 style="color:rgb(0, 102, 255)">Top 10 YouTube Results for "{{ movie_title }} Trailer"</h1>
-</div>
-
-{% if videos %}
-<ul class="list-group list-group-flush">
-  {% for video in videos %}
-  <li class="list-group-item" style="color:rgb(0, 179, 0)">
-    <a href="{{ video.url }}" target="_blank" style="color:rgb(0, 179, 0)">
-      <strong>{{ video.title }}</strong>
-    </a>
-  </li>
-  {% endfor %}
-</ul>
-{% else %}
-<p>No results found for "{{ movie_title }}". Please try a different query.</p>
-{% endif %}
 {% endblock %}

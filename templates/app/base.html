@@ -28,23 +28,6 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
-<script>
-    let currentIndex = 0;
-const slides = document.querySelectorAll('.hero-slider .slide');
-
-function showNextSlide() {
-    slides[currentIndex].classList.remove('active');
-    currentIndex = (currentIndex + 1) % slides.length; // Loop back to the first slide
-    slides[currentIndex].classList.add('active');
-}
-
-// Initialize the first slide as active
-slides[currentIndex].classList.add('active');
-
-// Change slide every 4 seconds
-setInterval(showNextSlide, 4000);
-
-</script>
 
   <style>
     *{
@@ -70,14 +53,14 @@ setInterval(showNextSlide, 4000);
 </head>
 
 <body>
-  <div class="container">
+  <div class="custom-container">
     <nav class="navbar navbar-light bg-light">
-      <h3><a style="color:rgb(0, 102, 255)" class="nav-link" href="{% url 'home' %}">Home</a></h3>
+      <h3><a style="color:rgb(39, 41, 43)" class="nav-link" href="{% url 'home' %}">Home</a></h3>
       <!-- Update the logout button to a form with POST method -->
       <form action="{% url 'logout' %}" method="POST" style="display:inline;">
         {% csrf_token %}
         <button type="submit" class="btn btn-link-bold"
-          style="color:rgb(0, 102, 255); font-size: 1.40rem;">Logout</button>
+          style="color:rgb(39, 41, 43); font-size: 1.40rem;">Logout</button>
       </form>
     </nav>
 
@@ -86,10 +69,10 @@ setInterval(showNextSlide, 4000);
       {% endblock %}
     </div>
 
-    <div class="card mb-3" style="max-width: 650px;">
+    <div class="card mb-3" >
       <div class="row no-gutters">
-        <div class="col-md-8">
-          <div class="card-body">
+        <div class="col-md-12">
+          <div class="card-body text-center">
             <h5 id="owner" class="card-title">Prashant Borde & Sanjana Shinde</h5>
             <p id="owner" class="card-text">Movie Recommendation System Project</p>
           </div>
