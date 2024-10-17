@@ -28,7 +28,7 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, get_object_or_404
   
-
+from .train_model import recommend_movie, create_and_save_model
 
 
 
@@ -37,6 +37,9 @@ from django.shortcuts import render, get_object_or_404
 def home_page(request):
     return render(request, 'app/home.html')
 
+def train_model(request):
+    create_and_save_model()
+    return render(request, 'app/home.html')
 
 def register_view(request):
     if request.method == 'POST':
@@ -195,7 +198,7 @@ def rcmd(movie_title):
 @login_required
 def recommend(request):
     movie = request.GET.get('movie')
-    recommendations, posters = rcmd(movie)  # Get both movie titles and posters
+    recommendations, posters = recommend_movie(movie)  # Get both movie titles and posters
     movie_display = movie.upper()
     
     if request.method == 'POST':
@@ -210,18 +213,23 @@ def recommend(request):
         feedback_form = FeedbackForm()
 
     # Check if the recommendations returned an error message
+    # breakpoint()
     if isinstance(recommendations, str):
+        print('>'*40)
         return render(request, 'app/recommend.html', {
             'movie': movie_display,
+            'movie_display': movie_display,
             'r': recommendations,
             't': 's',
             'feedback_form': feedback_form
         })
     else:
+        print('#'*40)
         # Pass both recommendations and posters to the template
         return render(request, 'app/recommend.html', {
             'movie': movie_display,
-            'r': zip(recommendations, posters),  # Zip movie titles with posters
+            'movie_display': movie_display,
+            'r': list(zip(recommendations, posters)),  # Zip movie titles with posters
             't': 'l',
             'feedback_form': feedback_form
         })
@@ -446,7 +454,11 @@ def fetch_poster_by_title(movie_title):
             return None
         except Exception as e:
             print(f"Error fetching from TMDb: {e}")
+            response = requests.get(url, timeout=10)
+
             return None
+
+
 
     # Function to fetch the poster from OMDb
     # http://www.omdbapi.com/?i=tt3896198&apikey=82e3bf68

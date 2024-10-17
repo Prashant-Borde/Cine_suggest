@@ -201,7 +201,7 @@ h3 {
 }
 
 .jumbotron{
-    background-color: #1e90ff;
+    background-color: #282525;
     padding: 1rem 1rem;
 }
 
@@ -270,4 +270,11 @@ th {
 
 tbody tr:hover {
     background-color: rgba(255, 255, 255, 0.1); /* Highlight row on hover */
+}
+.width{
+    padding: 15rem;
+}
+
+.background-image{
+    height: 10vh;
 }

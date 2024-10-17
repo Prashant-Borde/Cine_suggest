@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 
+# app_name = 'app'
 urlpatterns = [
     path('', views.home_page, name='home'),
     path('register/', views.register_view, name='register'),
@@ -15,6 +16,7 @@ urlpatterns = [
     # path('movie/<int:movie_id>/', views.movie_details, name='movie_details'),
     # urls.py
     path('movie-details/<str:movie_title>/', views.movie_details, name='movie_details'),
+    path('train-model', views.train_model, name='train-model'),
 
     
 

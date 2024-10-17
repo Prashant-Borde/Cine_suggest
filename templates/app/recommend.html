@@ -87,12 +87,12 @@
         </div> -->
 
         
-     
+        <!-- <h1>hello >>>>>>>>>>>>>>>>>>.{{movie}}$${{movie_display}}</h1> -->
         <div class="row">
-            {% for movie, poster in r %}
+            {% for mvi, poster in r %}
             <div class="col-md-2 col-sm-6 col-md-2">
                 <div class="card mb-4 movie-card">
-                    <img src="{{ poster }}" alt="{{ movie }}" class="card-img-top" loadin="latency" style="height: 300px; object-fit: cover;">
+                    <img src="{{ poster }}" alt="{{ mvi }}" class="card-img-top" loadin="latency" style="height: 300px; object-fit: cover;">
                     <div class="card-body text-center" style="height: 200px; object-fit: cover;">
                         <h5 class="card-title">
                             <!-- below is a title which has functionality when clicked on it it redirect and find a trailer of movie  -->
@@ -101,7 +101,7 @@
                         <!-- bellow is a button for imdb search -->
                         <!-- <a href="https://www.imdb.com/find?q={{ movie|urlencode }}" target="_self" class="imdb-button">IMDb Rating</a> -->
                         <!-- below is a button on which if clicked it redirects and show the movie details from database  -->
-                        <a href="{% url 'movie_details' movie %}" target="_self" class="movie-details">{{ movie|title }}</a>
+                        <a href="{% url 'movie_details' 'mvi' %}" target="_self" class="movie-details">{{ mvi|title }}</a>
 
 
 
