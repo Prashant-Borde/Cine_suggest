@@ -108,7 +108,7 @@ def rcmd(movie_title):
         i = data.loc[data['movie_title'].str.lower() == movie_title].index[0]
         lst = list(enumerate(sim[i]))
         lst = sorted(lst, key=lambda x: x[1], reverse=True)
-        lst = lst[1:31]  # Get top 10 recommendations
+        lst = lst[1:13]  # Get top 10 recommendations
 
         # Prepare lists for recommended movies and their posters
         recommendations = []
@@ -122,78 +122,6 @@ def rcmd(movie_title):
 
         return recommendations, recommended_movies_posters
 
-
-
-
-
-
-
-
-#working code
-# def rcmd(movie_title):
-#     movie_title = movie_title.lower()
-#     data, sim = create_sim()
-
-#     if movie_title not in data['movie_title'].str.lower().values:
-#         return 'This movie is not in our database.\nPlease check if you spelled it correctly.'
-#     else:
-#         i = data.loc[data['movie_title'].str.lower() == movie_title].index[0]
-#         lst = list(enumerate(sim[i]))
-#         lst = sorted(lst, key=lambda x: x[1], reverse=True)
-#         lst = lst[1:11]  # Get top 10 recommendations
-
-#         # Prepare lists for recommended movies and posters
-#         recommendations = []
-#         recommended_movies_posters = []
-
-#         for index, _ in lst:
-#             movie_title = data['movie_title'][index]
-#             recommendations.append(movie_title)
-#             poster = fetch_poster(index)  # Fetch the poster for each recommended movie
-#             recommended_movies_posters.append(poster)
-
-#         return recommendations, recommended_movies_posters
-
-
-
-
-
-
-
-
-
-
-# def rcmd(movie_title):
-#     movie_title = movie_title.lower()
-#     data, sim = create_sim()
-    
-#     if movie_title not in data['movie_title'].str.lower().values:
-#         return 'This movie is not in our database.\nPlease check if you spelled it correctly.'
-#     else:
-#         i = data.loc[data['movie_title'].str.lower() == movie_title].index[0]
-#         lst = list(enumerate(sim[i]))
-#         lst = sorted(lst, key=lambda x: x[1], reverse=True)
-#         lst = lst[1:11]  # Get top 10 recommendations
-
-#         # Making an empty list that will contain all 10 movie recommendations
-#         recommendations = []
-#         for index, _ in lst:
-#             recommendations.append(data['movie_title'][index])
-#             recomended_movies_posters.append(fetch_poster(i[0]))
-#         return recommendations,recomended_movies_posters
-
-# @login_required
-# def recommend(request):
-#     movie = request.GET.get('movie')
-#     recommendations = rcmd(movie)
-#     movie_display = movie.upper()
-    
-#     if isinstance(recommendations, str):
-#         return render(request, 'app/recommend.html', {'movie': movie_display, 'r': recommendations, 't': 's'})
-#     else:
-#         return render(request, 'app/recommend.html', {'movie': movie_display, 'r': recommendations, 't': 'l'})
-
-# app/views.py
 
 @login_required
 def recommend(request):
@@ -234,73 +162,6 @@ def recommend(request):
             'feedback_form': feedback_form
         })
 
-
-# @login_required
-# def recommend(request):
-#     movie = request.GET.get('movie')
-#     recommendations = rcmd(movie)
-#     movie_display = movie.upper()
-    
-#     if request.method == 'POST':
-#         feedback_form = FeedbackForm(request.POST)
-#         if feedback_form.is_valid():
-#             feedback = feedback_form.save(commit=False)
-#             feedback.user = request.user  # Set the user to the currently logged-in user
-#             feedback.save()
-#             messages.success(request, "Thank you for your feedback!")
-#             return redirect('recommend', movie=movie)  # Redirect to the same page
-#     else:
-#         feedback_form = FeedbackForm()
-
-#     # Pass the feedback_form to the template regardless of POST method
-#     if isinstance(recommendations, str):
-#         return render(request, 'app/recommend.html', {
-#             'movie': movie_display,
-#             'r': recommendations,
-#             't': 's',
-#             'feedback_form': feedback_form
-#         })
-#     else:
-#         return render(request, 'app/recommend.html', {
-#             'movie': movie_display,
-#             'r': recommendations,
-#             't': 'l',
-#             'feedback_form': feedback_form
-#         })
-
-
-# @login_required
-# def recommend(request):
-#     movie = request.GET.get('movie')
-#     recommendations = rcmd(movie)
-#     movie_display = movie.upper()
-    
-#     if request.method == 'POST':
-#         feedback_form = FeedbackForm(request.POST)
-#         if feedback_form.is_valid():
-#             feedback = feedback_form.save(commit=False)
-#             feedback.user = request.user  # Set the user to the currently logged-in user
-#             feedback.save()
-#             messages.success(request, "Thank you for your feedback!")
-#             return redirect('recommend', movie=movie)  # Redirect to the same page
-
-#     else:
-#         feedback_form = FeedbackForm()
-
-#     if isinstance(recommendations, str):
-#         return render(request, 'app/recommend.html', {
-#             'movie': movie_display,
-#             'r': recommendations,
-#             't': 's',
-#             'feedback_form': feedback_form
-#         })
-#     else:
-#         return render(request, 'app/recommend.html', {
-#             'movie': movie_display,
-#             'r': recommendations,
-#             't': 'l',
-#             'feedback_form': feedback_form
-#         })
 
 
 @login_required
@@ -351,89 +212,7 @@ def import_csv_to_db(request):
     else:
         return Response({"message": "Data successfully migrated from CSV to database."}, status=status.HTTP_201_CREATED)
 
-# def fetch_poster(id):
-#      response = requests.get('https://api.themoviedb.org/3/movie/{}?api_key=db3b42ad8b49e299ecc879fc2539fc90&language=en-US').format(movie)
-#      data = response.json()
-#      return "https://image.tmdb.org/t/p/w500/"+ data['poster_path']
 
-# def fetch_poster(movie_id):
-#     # Format the URL with the movie ID
-#     url = 'https://api.themoviedb.org/3/movie/{}?api_key=db3b42ad8b49e299ecc879fc2539fc90&language=en-US'.format(movie_id)
-    
-#     # Fetch the poster from the API
-#     response = requests.get(url)
-    
-#     if response.status_code == 200:
-#         data = response.json()
-#         poster_path = data.get('poster_path')
-        
-#         # Return the full URL of the poster if available
-#         if poster_path:
-#             return f'https://image.tmdb.org/t/p/w500{poster_path}'
-#         else:
-#             return None
-#     else:
-#         return None
-
-#working code
-# def fetch_poster(movie_id):
-#     url = 'https://api.themoviedb.org/3/movie/{}?api_key=db3b42ad8b49e299ecc879fc2539fc90&language=en-US'.format(movie_id)
-    
-#     # Retry mechanism for transient connection issues
-#     retries = 3  # Number of retry attempts
-#     delay = 2  # Delay in seconds between retries
-
-#     for attempt in range(retries):
-#         try:
-#             response = requests.get(url)
-            
-#             # Check if the request was successful
-#             if response.status_code == 200:
-#                 data = response.json()
-#                 poster_path = data.get('poster_path')
-                
-#                 # Return the full poster URL if available
-#                 if poster_path:
-#                     return f'https://image.tmdb.org/t/p/w500{poster_path}'
-#                 else:
-#                     return None
-#             else:
-#                 # Handle cases where the API responds but no poster is found
-#                 print(f"Error: Received status code {response.status_code}")
-#                 return None
-
-#         except ConnectionError as e:
-#             print(f"Attempt {attempt + 1} failed with error: {e}. Retrying...")
-#             time.sleep(delay)  # Wait before retrying
-    
-#     # If all retries fail
-#     print("All retries failed. Unable to fetch poster.")
-#     return None
-
-
-# def fetch_poster_by_title(movie_title):
-#     api_key = 'YOUR_API_KEY'  # Replace with your actual TMDb API key
-#     url = f'https://api.themoviedb.org/3/search/movie?api_key=db3b42ad8b49e299ecc879fc2539fc90&query={movie_title}'
-
-#     try:
-#         response = requests.get(url)
-        
-#         if response.status_code == 200:
-#             data = response.json()
-#             if data['results']:
-#                 poster_path = data['results'][0].get('poster_path')
-#                 if poster_path:
-#                     return f'https://image.tmdb.org/t/p/w500{poster_path}'
-#                 else:
-#                     return None
-#             else:
-#                 return None
-#         else:
-#             print(f"Error: Received status code {response.status_code}")
-#             return None
-#     except Exception as e:
-#         print(f"Error fetching poster: {e}")
-#         return None
 
 import requests
 
@@ -513,5 +292,7 @@ def movie_details(request, movie_title):
     # Pass the movie details to the template
     context = {
         'movie': movie,
+        
     }
+    print(context)
     return render(request, 'app/movie_details.html', context)

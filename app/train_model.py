@@ -40,10 +40,10 @@ def fetch_poster_by_title(movie_title):
     # Function to fetch the poster from TMDb
     def fetch_from_tmdb():
         api_key = 'YOUR_TMDB_API_KEY'  # Replace with your actual TMDb API key
-        url = f'https://api.themoviedb.org/3/search/movie?api_key=db3b42ad8b49e299ecc879fc2539fc90&query={movie_title}'
-
+        # url = f'https://api.themoviedb.org/3/search/movie?api_key=db3b42ad8b49e299ecc879fc2539fc90&query={movie_title}'
+        url = f'https://api.themoviedb.org/3/search/movie?api_key=cebcaf3f979a920e1ea776ce5c06cbc7&query={movie_title}'
         try:
-            response = requests.get(url)
+            response = requests.get(url, timeout=60)
             if response.status_code == 200:
                 data = response.json()
                 if data['results']:
@@ -53,7 +53,7 @@ def fetch_poster_by_title(movie_title):
             return None
         except Exception as e:
             print(f"Error fetching from TMDb: {e}")
-            response = requests.get(url, timeout=10)
+            response = requests.get(url, timeout=60)
 
             return None
 
@@ -66,7 +66,7 @@ def fetch_poster_by_title(movie_title):
         url = f"http://www.omdbapi.com/?t={movie_title}&apikey=82e3bf68"
 
         try:
-            response = requests.get(url)
+            response = requests.get(url,timeout=60)
             if response.status_code == 200:
                 data = response.json()
                 if 'Poster' in data and data['Poster'] != 'N/A':
@@ -94,7 +94,7 @@ def recommend_movie(movie_title):
         i = data.loc[data['movie_title'].str.lower() == movie_title].index[0]
         lst = list(enumerate(sim[i]))
         lst = sorted(lst, key=lambda x: x[1], reverse=True)
-        lst = lst[1:31]  # Get top 30 recommendations
+        lst = lst[1:13]  # Get top 30 recommendations
 
         recommendations = []
         recommended_movies_posters = []

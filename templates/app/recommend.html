@@ -88,26 +88,26 @@
 
         
         <!-- <h1>hello >>>>>>>>>>>>>>>>>>.{{movie}}$${{movie_display}}</h1> -->
+         {% comment %} {{r}} {% endcomment %}
         <div class="row">
             {% for mvi, poster in r %}
             <div class="col-md-2 col-sm-6 col-md-2">
                 <div class="card mb-4 movie-card">
-                    <img src="{{ poster }}" alt="{{ mvi }}" class="card-img-top" loadin="latency" style="height: 300px; object-fit: cover;">
-                    <div class="card-body text-center" style="height: 200px; object-fit: cover;">
+                    <img src="{{ poster }}" alt="{{ mvi }}" class="card-img-top" loading="lazy" style="height: 300px; object-fit: cover;">
+                    <div class="card-body text-center" style="height: 100px; object-fit: cover;">
                         <h5 class="card-title">
-                            <!-- below is a title which has functionality when clicked on it it redirect and find a trailer of movie  -->
-                            <!-- <a href="https://www.youtube.com/results?search_query={{ movie|urlencode }}+trailer" target="_self" class="text-success">{{ movie|title }}</a> -->
+                            <!-- Title with functionality to find a trailer of the movie -->
+                            <!-- <a href="https://www.youtube.com/results?search_query={{ mvi|urlencode }}+trailer" target="_self" class="text-success">{{ mvi|title }}</a> -->
                         </h5>
-                        <!-- bellow is a button for imdb search -->
-                        <!-- <a href="https://www.imdb.com/find?q={{ movie|urlencode }}" target="_self" class="imdb-button">IMDb Rating</a> -->
-                        <!-- below is a button on which if clicked it redirects and show the movie details from database  -->
-                        <a href="{% url 'movie_details' 'mvi' %}" target="_self" class="movie-details">{{ mvi|title }}</a>
-
-
-
+                        <!-- IMDb search button -->
+                        <!-- <a href="https://www.imdb.com/find?q={{ mvi|urlencode }}" target="_self" class="imdb-button">IMDb Rating</a> -->
+                        <!-- Movie details button that redirects to the details page -->
+                        <a href="{% url 'movie_details' mvi %}" target="_self" class="movie-details">{{ mvi|title }}</a>
                     </div>
                 </div>
             </div>
+        
+        
             {% if forloop.counter|divisibleby:6 %}
             </div><div class="row">
             {% endif %}
