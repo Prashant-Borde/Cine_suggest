@@ -163,3 +163,4 @@ cython_debug/
 
 # Ignore all Django migration files
 **/migrations/*
+bfg.jar
